@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BookingWale</title>
+<script>document.documentElement.dataset.t = '14';</script>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="BookingWale: online booking page and admin panel for salons, beauty parlours, clinics and spas in India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Karla:wght@400;500;700&family=Italiana&family=Manrope:wght@400;600;700&family=Gilda+Display&family=Figtree:wght@400;600;700&family=Geist:wght@400;600;700&family=Yeseva+One&family=Mukta:wght@400;600;700&family=Poiret+One&family=Josefin+Sans:wght@400;600;700&family=Cinzel:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Rozha+One&family=Libre+Franklin:wght@400;600;700&family=Tenor+Sans&family=Nunito+Sans:wght@400;700&family=Kurale&family=Hind:wght@400;600;700&family=Marcellus&family=Lato:wght@400;700&family=Della+Respira&family=Work+Sans:wght@400;600;700&family=Gloock&family=Mulish:wght@400;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;600;700&family=Anton&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: one long product page; ten committed worlds share the same structure and swap tokens, faces and the hero signature.
+   Each world is single-theme by design, so every colour is set explicitly per world. */
+:root {
+  --bg: #0e2a22; --bg2: #153a2f; --card: rgba(255,255,255,.04); --fg: #e9efe9; --mute: #a9bdb2; --line: rgba(233,239,233,.16);
+  --ac: #c9a85a; --acfg: #0e2a22; --ac2: #e3a43f;
+  --display: 'Bodoni Moda', Georgia, serif; --body: Karla, system-ui, sans-serif;
+  --r: 2px; --rb: 2px; --dw: 500; --track: 0;
+  --bar: #111216; --barfg: #ecedf0; color-scheme: dark;
+}
+[data-t="1"]{--bg:#0e2a22;--bg2:#153a2f;--card:rgba(255,255,255,.04);--fg:#e9efe9;--mute:#a9bdb2;--line:rgba(233,239,233,.16);--ac:#c9a85a;--acfg:#0e2a22;--ac2:#e3a43f;--display:'Bodoni Moda',Georgia,serif;--body:Karla,system-ui,sans-serif;--r:2px;--rb:2px;--dw:500;color-scheme:dark}
+[data-t="2"]{--bg:#3a0d1a;--bg2:#4a1222;--card:rgba(255,255,255,.04);--fg:#f6ecdf;--mute:#d4b9b0;--line:rgba(215,180,106,.28);--ac:#d7b46a;--acfg:#3a0d1a;--ac2:#4fb38a;--display:Italiana,Georgia,serif;--body:Manrope,system-ui,sans-serif;--r:16px;--rb:999px;--dw:400;--track:.02em;color-scheme:dark}
+[data-t="3"]{--bg:#eeebe4;--bg2:#e3ded3;--card:#f6f4ef;--fg:#23221f;--mute:#5e5a52;--line:#cfc9bc;--ac:#23221f;--acfg:#eeebe4;--ac2:#c99627;--display:'Gilda Display',Georgia,serif;--body:Figtree,system-ui,sans-serif;--r:0px;--rb:0px;--dw:400;color-scheme:light}
+[data-t="4"]{--bg:#ffffff;--bg2:#f5f7fa;--card:#ffffff;--fg:#0d1117;--mute:#5b6472;--line:#e3e6eb;--ac:#0d1117;--acfg:#ffffff;--ac2:#2b59ff;--display:Geist,system-ui,sans-serif;--body:Geist,system-ui,sans-serif;--r:12px;--rb:10px;--dw:700;--track:-.03em;color-scheme:light}
+[data-t="5"]{--bg:#2a0f3a;--bg2:#3d1752;--card:rgba(0,0,0,.18);--fg:#f7eef2;--mute:#cdb6c4;--line:rgba(214,168,74,.32);--ac:#f0cf7b;--acfg:#2a0f3a;--ac2:#e8b7c8;--display:'Yeseva One',Georgia,serif;--body:Mukta,system-ui,sans-serif;--r:4px;--rb:4px;--dw:400;color-scheme:dark}
+[data-t="6"]{--bg:#cfe3d6;--bg2:#f6efe6;--card:#f6efe6;--fg:#1e2c45;--mute:#43536b;--line:rgba(30,44,69,.22);--ac:#1e2c45;--acfg:#f6efe6;--ac2:#c95f47;--display:'Poiret One',system-ui,sans-serif;--body:'Josefin Sans',system-ui,sans-serif;--r:22px;--rb:999px;--dw:400;--track:.02em;color-scheme:light}
+[data-t="7"]{--bg:#f3f1ee;--bg2:#e8e4de;--card:#faf9f7;--fg:#2a2622;--mute:#645c54;--line:#d9d4cd;--ac:#1f3f8f;--acfg:#f3f1ee;--ac2:#b6452c;--display:Cinzel,Georgia,serif;--body:'EB Garamond',Georgia,serif;--r:0px;--rb:0px;--dw:500;color-scheme:light}
+[data-t="8"]{--bg:#3b2417;--bg2:#2a180e;--card:rgba(0,0,0,.16);--fg:#efe6d6;--mute:#c7b79e;--line:rgba(200,162,90,.3);--ac:#c8a25a;--acfg:#2a180e;--ac2:#e8cf92;--display:'Rozha One',Georgia,serif;--body:'Libre Franklin',system-ui,sans-serif;--r:2px;--rb:2px;--dw:400;color-scheme:dark}
+[data-t="9"]{--bg:#0c2b2f;--bg2:#11393d;--card:rgba(255,255,255,.04);--fg:#e4efe9;--mute:#a9c4bb;--line:rgba(143,185,168,.25);--ac:#8fb9a8;--acfg:#0c2b2f;--ac2:#c9c2b5;--display:'Tenor Sans',system-ui,sans-serif;--body:'Nunito Sans',system-ui,sans-serif;--r:18px;--rb:999px;--dw:400;--track:.01em;color-scheme:dark}
+[data-t="10"]{--bg:#1b2f5e;--bg2:#243c74;--card:rgba(0,0,0,.14);--fg:#ece4d4;--mute:#c4c6d6;--line:rgba(236,228,212,.22);--ac:#b8342c;--acfg:#ece4d4;--ac2:#d9a62e;--display:Kurale,Georgia,serif;--body:Hind,system-ui,sans-serif;--r:4px;--rb:3px;--dw:400;color-scheme:dark}
+[data-t="11"]{--bg:#f4f6f1;--bg2:#e7ece3;--card:#fbfcf9;--fg:#2c3a33;--mute:#5c6b62;--line:#cfd8cc;--ac:#3f5e4f;--acfg:#f4f6f1;--ac2:#8a6f9e;--display:Marcellus,Georgia,serif;--body:Lato,system-ui,sans-serif;--r:6px;--rb:999px;--dw:400;--track:.01em;color-scheme:light}
+[data-t="12"]{--bg:#1c1b19;--bg2:#262421;--card:rgba(255,255,255,.035);--fg:#f1e9dc;--mute:#b9ad9b;--line:rgba(212,160,86,.26);--ac:#d4a056;--acfg:#1c1b19;--ac2:#e0b877;--display:'Della Respira',Georgia,serif;--body:'Work Sans',system-ui,sans-serif;--r:50px;--rb:999px;--dw:400;color-scheme:dark}
+[data-t="13"]{--bg:#0f3d4a;--bg2:#0b2f3a;--card:rgba(255,255,255,.05);--fg:#f3efe6;--mute:#b8cbcc;--line:rgba(224,186,92,.35);--ac:#e0ba5c;--acfg:#0b2f3a;--ac2:#ef8fb1;--display:Gloock,Georgia,serif;--body:Mulish,system-ui,sans-serif;--r:10px;--rb:8px;--dw:400;color-scheme:dark}
+[data-t="14"]{--bg:#e1e6de;--bg2:#d2d9cf;--card:rgba(255,255,255,.58);--fg:#1f2a24;--mute:#4e5b53;--line:rgba(31,42,36,.15);--ac:#3f5e4f;--acfg:#f1f4ef;--ac2:#3f5e4f;--display:'Bricolage Grotesque',system-ui,sans-serif;--body:'Public Sans',system-ui,sans-serif;--r:16px;--rb:12px;--dw:700;--track:-.025em;color-scheme:light}
+[data-t="15"]{--bg:#141012;--bg2:#1f181b;--card:rgba(255,255,255,.04);--fg:#f4ece4;--mute:#bfb0a6;--line:rgba(199,122,74,.3);--ac:#c77a4a;--acfg:#141012;--ac2:#d8432f;--display:Anton,Impact,sans-serif;--body:Barlow,system-ui,sans-serif;--r:3px;--rb:3px;--dw:400;--track:.02em;color-scheme:dark}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; transition: background-color .4s ease, color .4s ease; }
+h1, h2, h3 { font-family: var(--display); font-weight: var(--dw); letter-spacing: var(--track); line-height: 1.06; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+::selection { background: var(--ac); color: var(--acfg); }
+:focus-visible { outline: 2px solid var(--ac2); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* theme switcher (preview tool, not part of the final site) */
+.switch { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: var(--bar); color: var(--barfg); padding-block: 8px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; gap: 6px; align-items: center; overflow-x: auto; font: 600 12px system-ui, sans-serif; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
+.switch span { white-space: nowrap; margin-right: 6px; opacity: .7; }
+.switch button { appearance: none; flex: none; border: 1px solid #3a3c44; background: transparent; color: #b9bcc4; border-radius: 999px; padding: 5px 11px; font: inherit; cursor: pointer; white-space: nowrap; }
+.switch button[aria-pressed=true] { background: #ecedf0; color: #111216; border-color: #ecedf0; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+section { padding-block: 96px; position: relative; scroll-margin-top: 12px; }
+.nav .btn { white-space: nowrap; }
+section.alt { background: var(--bg2); }
+.head { max-width: 760px; margin-bottom: 48px; }
+.head h2 { font-size: clamp(34px, 4.6vw, 58px); }
+.head p { color: var(--mute); margin-top: 16px; font-size: 19px; max-width: 60ch; }
+.kick { display: inline-block; font: 700 12px var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--ac2); margin-bottom: 14px; }
+
+.btn { appearance: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 24px; border-radius: var(--rb); border: 0; background: var(--ac); color: var(--acfg); font: 700 16px var(--body); text-decoration: none; cursor: pointer; transition: transform .2s cubic-bezier(.2,.8,.2,1), filter .2s; }
+.btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.btn.ghost { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 1.5px var(--line), inset 0 0 0 1.5px color-mix(in srgb, var(--ac) 60%, transparent); }
+.btn svg { width: 18px; height: 18px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); }
+
+/* nav */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.logo { font: var(--dw) 26px/1 var(--display); letter-spacing: .02em; color: var(--fg); text-decoration: none; display: inline-flex; align-items: baseline; gap: 2px; }
+.logo b { color: var(--ac2); font-weight: inherit; }
+.links { display: flex; gap: 26px; font-size: 15px; }
+.links a { text-decoration: none; color: var(--mute); }
+.links a:hover { color: var(--fg); }
+
+/* hero */
+.hero { padding-block: 40px 96px; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; }
+.hero h1 { font-size: clamp(46px, 7vw, 98px); line-height: .98; }
+.hero h1 em { font-style: normal; color: var(--ac2); }
+.hero .lead { font-size: 20px; color: var(--mute); max-width: 48ch; margin: 24px 0 32px; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.offer { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--mute); font-size: 15px; }
+.offer b { color: var(--fg); }
+.load > * { animation: up .9s cubic-bezier(.16,1,.3,1) both; }
+.load > *:nth-child(2) { animation-delay: .08s; } .load > *:nth-child(3) { animation-delay: .16s; } .load > *:nth-child(4) { animation-delay: .24s; }
+@keyframes up { from { transform: translateY(18px); opacity: .01; } }
+.hv { display: none; position: relative; min-height: 360px; }
+[data-t="1"] .hv1, [data-t="2"] .hv2, [data-t="3"] .hv3, [data-t="4"] .hv4, [data-t="5"] .hv5, [data-t="6"] .hv6, [data-t="7"] .hv7, [data-t="8"] .hv8, [data-t="9"] .hv9, [data-t="10"] .hv10, [data-t="11"] .hv11, [data-t="12"] .hv12, [data-t="13"] .hv13, [data-t="14"] .hv14, [data-t="15"] .hv15 { display: block; }
+[data-t="15"] .hero h1 { text-transform: uppercase; line-height: 1; }
+
+/* hv11 chikankari muslin: white-on-white hand embroidery, stitches drawn on as slots are booked */
+.hv11 .muslin { background: #fbfcf9; border: 1px solid #cfd8cc; border-radius: 8px; padding: 30px; box-shadow: 0 24px 50px rgba(44,58,51,.12); display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.hv11 .motif { aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; font: 700 14px Lato; color: #3f5e4f; position: relative; }
+.hv11 .motif svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hv11 .motif circle { fill: none; stroke: #8a6f9e; stroke-width: 2; stroke-dasharray: 4 5; stroke-dashoffset: 300; animation: stitch 3s ease-out forwards; }
+.hv11 .motif.free circle { stroke: #cfd8cc; animation: none; stroke-dashoffset: 0; }
+.hv11 .motif:nth-child(2) circle { animation-delay: .4s; } .hv11 .motif:nth-child(4) circle { animation-delay: .8s; } .hv11 .motif:nth-child(6) circle { animation-delay: 1.2s; }
+@keyframes stitch { to { stroke-dashoffset: 0; } }
+.hv11 .cap { grid-column: 1 / -1; text-align: center; color: #5c6b62; font-size: 14px; }
+
+/* hv12 brass thali: katoris around a thali, each a slot; booked ones catch the light */
+.hv12 .thali { aspect-ratio: 1; max-width: 420px; margin: 0 auto; border-radius: 50%; position: relative; background: radial-gradient(circle at 38% 32%, #f3d49c, #d4a056 40%, #8a6224 75%, #5c3f15); box-shadow: inset 0 0 0 10px rgba(0,0,0,.12), 0 30px 60px rgba(0,0,0,.5); }
+.hv12 .thali::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent 0 40%, rgba(255,255,255,.35) 46%, transparent 52% 100%); animation: shine 6s linear infinite; mix-blend-mode: overlay; }
+@keyframes shine { to { transform: rotate(360deg); } }
+.hv12 .katori { position: absolute; width: 23%; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; font: 700 13px 'Work Sans'; color: #1c1b19; background: radial-gradient(circle at 40% 35%, #f8e3b8, #c08a3e 70%); box-shadow: inset 0 -6px 10px rgba(0,0,0,.25), 0 6px 12px rgba(0,0,0,.3); z-index: 1; }
+.hv12 .katori.free { background: radial-gradient(circle at 40% 35%, #5a4a33, #2c241a 75%); color: #e0b877; }
+.hv12 .k1 { top: 6%; left: 38.5%; } .hv12 .k2 { top: 24%; left: 70%; } .hv12 .k3 { top: 58%; left: 70%; } .hv12 .k4 { top: 72%; left: 38.5%; } .hv12 .k5 { top: 58%; left: 7%; } .hv12 .k6 { top: 24%; left: 7%; }
+.hv12 .center { position: absolute; inset: 36%; border-radius: 50%; display: grid; place-items: center; text-align: center; font: 400 18px/1.1 'Della Respira'; color: #1c1b19; background: radial-gradient(circle, #f3d49c, #d4a056); z-index: 1; }
+
+/* hv13 meenakari enamel: peacock enamel tiles with gold cloisons */
+.hv13 .enamel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 14px; background: #e0ba5c; border-radius: 14px; box-shadow: 0 30px 60px rgba(0,0,0,.4); }
+.hv13 .tile { aspect-ratio: 1; border-radius: 8px; display: grid; place-items: center; font: 700 14px Mulish; color: #f3efe6; background: radial-gradient(circle at 30% 25%, #2aa6a0, #0f6b73 55%, #0b3f4d); box-shadow: inset 0 0 0 3px #e0ba5c, inset 0 0 0 6px #0b3f4d; position: relative; overflow: hidden; }
+.hv13 .tile.pink { background: radial-gradient(circle at 30% 25%, #ffb3cc, #d9577f 60%, #8e2449); }
+.hv13 .tile.free { background: #0b2f3a; color: #e0ba5c; }
+.hv13 .tile::after { content: ''; position: absolute; inset: -40%; background: linear-gradient(115deg, transparent 45%, rgba(255,255,255,.35) 50%, transparent 55%); animation: sheen 4.5s ease-in-out infinite; }
+.hv13 .tile:nth-child(3n)::after { animation-delay: 1.2s; } .hv13 .tile:nth-child(3n+1)::after { animation-delay: 2.4s; }
+@keyframes sheen { from { transform: translateX(-60%); } 60%, to { transform: translateX(60%); } }
+
+/* hv14 monsoon glass: a rain-streaked window over the day's bookings */
+.hv14 .pane { position: relative; border-radius: 18px; padding: 26px; background: rgba(255,255,255,.58); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.8); box-shadow: 0 30px 60px rgba(31,42,36,.18); overflow: hidden; }
+.hv14 .r { display: flex; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid rgba(31,42,36,.12); font-size: 15px; position: relative; z-index: 1; }
+.hv14 .r b { color: #3f5e4f; }
+.hv14 .r b { font-variant-numeric: tabular-nums; }
+.hv14 .drop { position: absolute; top: -20px; width: 2px; height: 26px; border-radius: 2px; background: linear-gradient(transparent, rgba(63,94,79,.6)); animation: fall 1.6s linear infinite; }
+@keyframes fall { to { transform: translateY(520px); } }
+.rain { position: absolute; inset: 0; pointer-events: none; display: none; overflow: hidden; }
+[data-t="14"] .rain { display: block; }
+.rain i { position: absolute; top: -40px; width: 1px; height: 40px; background: linear-gradient(transparent, rgba(63,94,79,.32)); animation: fall2 1.3s linear infinite; }
+@keyframes fall2 { to { transform: translateY(1100px); } }
+
+/* hv15 barbershop: leather panel with a turning pole */
+.hv15 .shop { display: grid; grid-template-columns: 70px 1fr; gap: 22px; align-items: stretch; }
+.hv15 .pole { border-radius: 35px; border: 4px solid #c77a4a; background: repeating-linear-gradient(-45deg, #d8432f 0 18px, #f4ece4 18px 36px, #1f4f8f 36px 54px, #f4ece4 54px 72px); background-size: 100% 204px; animation: pole 2.2s linear infinite; min-height: 340px; box-shadow: inset 0 0 18px rgba(0,0,0,.45); }
+@keyframes pole { to { background-position: 0 204px; } }
+.hv15 .board { background: #1f181b; border: 2px solid #c77a4a; padding: 22px; border-radius: 4px; }
+.hv15 .board h4 { margin: 0 0 10px; font: 400 26px Anton; letter-spacing: .04em; color: #c77a4a; text-transform: uppercase; }
+.hv15 .board .r { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px dashed rgba(199,122,74,.4); font: 600 16px Barlow; }
+.hv15 .board .r span:last-child { font-variant-numeric: tabular-nums; color: #f4ece4; }
+.hv15 .board .r.free span:last-child { color: #d8432f; }
+
+/* hv1 apothecary */
+.hv1 .shelf { display: flex; gap: 16px; align-items: flex-end; justify-content: center; padding: 40px 10px 20px; border-bottom: 3px solid var(--ac); }
+.bottle { width: 70px; height: 210px; border-radius: 28px 28px 10px 10px; position: relative; background: linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,.02) 40%, rgba(255,255,255,.14)); border: 1px solid rgba(233,239,233,.35); overflow: hidden; }
+.bottle::before { content: ''; position: absolute; left: 50%; top: -1px; width: 28px; height: 22px; transform: translateX(-50%); background: var(--ac); border-radius: 3px 3px 0 0; }
+.bottle i { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: linear-gradient(#e9b459, #b86b1f); animation: pour 2.4s cubic-bezier(.2,.8,.2,1) forwards; }
+.bottle span { position: absolute; left: 6px; right: 6px; top: 78px; background: #e9efe9; color: #0e2a22; font: 700 12px Karla; text-align: center; padding: 5px 0; z-index: 1; }
+.bottle:nth-child(2) i { animation-delay: .5s; } .bottle:nth-child(4) i { animation-delay: 1s; } .bottle:nth-child(5) i { animation-delay: 1.5s; }
+.bottle.free i { display: none; }
+@keyframes pour { to { height: 80%; } }
+.shelf-note { text-align: center; color: var(--mute); font-size: 14px; margin-top: 14px; }
+
+/* hv2 velvet */
+.hv2 .tray { background: #4a1222; border: 2px solid #d7b46a; border-radius: 20px; padding: 24px; box-shadow: inset 0 0 0 6px #3a0d1a, inset 0 0 0 7px rgba(215,180,106,.5), 0 30px 60px rgba(0,0,0,.4); display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.gem { aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; font: 700 13px Manrope; background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.12), rgba(0,0,0,.25)); box-shadow: inset 0 0 0 1px rgba(215,180,106,.4); }
+.gem.set { background: radial-gradient(circle at 35% 30%, #fff 0 6%, #4fb38a 14%, #0f5f44 70%); box-shadow: 0 0 0 2px #d7b46a, 0 0 18px rgba(79,179,138,.5); animation: glint 3s ease-in-out infinite; }
+.gem.ruby { background: radial-gradient(circle at 35% 30%, #fff 0 6%, #e04a5f 14%, #7d1022 70%); box-shadow: 0 0 0 2px #d7b46a, 0 0 18px rgba(224,74,95,.5); }
+@keyframes glint { 50% { filter: brightness(1.3); } }
+
+/* hv3 daylight */
+.hv3 .beam { position: absolute; top: -40%; left: 10%; width: 46%; height: 190%; background: linear-gradient(90deg, rgba(233,185,73,0), rgba(233,185,73,.5), rgba(233,185,73,0)); transform: rotate(18deg); animation: travel 8s ease-in-out infinite alternate; mix-blend-mode: multiply; pointer-events: none; }
+@keyframes travel { to { left: 55%; } }
+.hv3 .day { border-top: 2px solid #23221f; position: relative; }
+.hv3 .row { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; padding: 14px 0; border-bottom: 1px solid #cfc9bc; }
+.hv3 .lit { background: #e9b949; padding: 0 8px; }
+
+/* hv4 saas */
+.hv4 .app { border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 24px 60px rgba(13,17,23,.12); padding: 20px; background: #fff; }
+.hv4 .r { display: flex; justify-content: space-between; gap: 10px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.pill { font-size: 12px; padding: 2px 9px; border-radius: 999px; background: #eef2ff; color: #2b59ff; font-weight: 600; white-space: nowrap; }
+
+/* hv5 banarasi */
+.hv5 .card { padding: 26px; border-color: #d6a84a; }
+.hv5 .s { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed rgba(214,168,74,.5); }
+.zari { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; background: repeating-linear-gradient(90deg, #d6a84a 0 2px, transparent 2px 14px), repeating-linear-gradient(45deg, rgba(240,207,123,.5) 0 6px, transparent 6px 12px); border-top: 3px solid #f0cf7b; animation: weave 6s linear infinite; display: none; }
+[data-t="5"] .zari { display: block; }
+@keyframes weave { to { background-position: 140px 0, 70px 0; } }
+
+/* hv6 deco */
+.hv6 .arch { background: #f6efe6; border: 3px solid #1e2c45; border-radius: 240px 240px 10px 10px; padding: 96px 28px 32px; text-align: center; position: relative; max-width: 420px; margin: 0 auto; }
+.hv6 .arch::before { content: ''; position: absolute; left: 50%; top: 22px; width: 140px; height: 70px; transform: translateX(-50%); border-radius: 140px 140px 0 0; background: repeating-conic-gradient(from 270deg at 50% 100%, #e27a62 0 10deg, #f6efe6 10deg 20deg); }
+.hv6 .t { font: 700 48px 'Josefin Sans'; animation: tick 2.4s steps(1) infinite; }
+@keyframes tick { 50% { color: #c95f47; } }
+.terrazzo { position: absolute; inset: 0; opacity: .5; pointer-events: none; display: none; background-image: radial-gradient(circle at 12% 18%, #e27a62 0 3px, transparent 4px), radial-gradient(circle at 72% 64%, #1e2c45 0 2px, transparent 3px), radial-gradient(circle at 40% 80%, #fff 0 4px, transparent 5px); background-size: 140px 140px, 90px 90px, 160px 160px; }
+[data-t="6"] .terrazzo { display: block; }
+
+/* hv7 pietra dura */
+.hv7 .inlay { aspect-ratio: 1; max-width: 400px; margin: 0 auto; position: relative; border: 2px solid #2a2622; background: #faf9f7; }
+.hv7 .inlay::after { content: ''; position: absolute; inset: 14px; border: 1px solid #1f3f8f; }
+.hv7 .inlay i { position: absolute; border-radius: 50% 0; animation: bloom 4s ease-in-out infinite alternate; }
+.hv7 .inlay i:nth-child(1) { inset: 16% 41% 52% 41%; background: #b6452c; }
+.hv7 .inlay i:nth-child(2) { inset: 52% 41% 16% 41%; background: #b6452c; transform: rotate(180deg); }
+.hv7 .inlay i:nth-child(3) { inset: 41% 52% 41% 16%; background: #2f7a5a; }
+.hv7 .inlay i:nth-child(4) { inset: 41% 16% 41% 52%; background: #2f7a5a; transform: rotate(180deg); }
+.hv7 .inlay b { position: absolute; inset: 44%; border-radius: 50%; background: #1f3f8f; }
+@keyframes bloom { to { filter: saturate(1.5) brightness(1.05); } }
+
+/* hv8 concierge */
+.hv8 .rack { background: #2a180e; padding: 24px; border: 3px solid #c8a25a; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.hook { text-align: center; font: 600 13px 'Libre Franklin'; color: #e8cf92; }
+.hook .k { margin: 8px auto 0; width: 24px; height: 50px; border-radius: 12px 12px 4px 4px; background: linear-gradient(#e8cf92, #c8a25a); transform-origin: top center; animation: swing 3s ease-in-out infinite; }
+.hook.out .k { opacity: .12; animation: none; }
+.hook:nth-child(3) .k { animation-delay: -.8s; } .hook:nth-child(6) .k { animation-delay: -1.6s; }
+@keyframes swing { 50% { transform: rotate(9deg); } }
+
+/* hv9 spa */
+.hv9 .stones { display: flex; flex-direction: column; gap: 14px; align-items: center; padding-top: 30px; }
+.stone { background: #c9c2b5; color: #0c2b2f; border-radius: 50%; padding: 20px 46px; font-weight: 700; box-shadow: 0 12px 26px rgba(0,0,0,.35); }
+.stone:nth-child(2) { padding: 22px 64px; } .stone:nth-child(3) { padding: 24px 82px; background: #8fb9a8; }
+.steam { position: absolute; bottom: -40px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(rgba(228,239,233,.2), transparent 70%); animation: rise 7s ease-in infinite; pointer-events: none; display: none; }
+[data-t="9"] .steam { display: block; }
+.steam:nth-of-type(2) { left: 55%; animation-delay: -2.5s; } .steam:nth-of-type(3) { left: 80%; animation-delay: -5s; width: 130px; height: 130px; }
+@keyframes rise { from { transform: translateY(0) scale(.6); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(-620px) scale(1.4); opacity: 0; } }
+
+/* hv10 indigo */
+.hv10 .block { background: #ece4d4; color: #1b2f5e; padding: 24px; border-radius: 4px; box-shadow: 10px 10px 0 #b8342c; }
+.hv10 .s { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 2px dotted #243c74; font-weight: 600; }
+.print { position: absolute; inset: 0; opacity: .16; pointer-events: none; display: none; background-image: radial-gradient(circle at 50% 50%, #ece4d4 0 5px, transparent 6px), radial-gradient(circle at 0 0, #ece4d4 0 3px, transparent 4px); background-size: 46px 46px; }
+[data-t="10"] .print { display: block; }
+
+/* problems */
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.prob { padding: 26px; }
+.prob h3 { font-size: 24px; margin-bottom: 8px; }
+.prob p { color: var(--mute); }
+.prob .x { font: 700 13px var(--body); color: var(--ac2); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; display: block; }
+
+/* why */
+.why { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.why > div { padding: 28px 22px 8px 0; border-right: 1px solid var(--line); margin-right: 22px; }
+.why > div:last-child { border-right: 0; margin-right: 0; }
+.why b { display: block; font: var(--dw) 26px/1.15 var(--display); margin-bottom: 10px; }
+.why p { color: var(--mute); font-size: 16px; }
+
+/* tour */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.tabs button { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--mute); padding: 9px 16px; border-radius: var(--rb); font: 600 15px var(--body); cursor: pointer; }
+.tabs button[aria-selected=true] { background: var(--ac); color: var(--acfg); border-color: var(--ac); }
+.panel { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: center; }
+.panel[hidden] { display: none !important; }
+.panel h3 { font-size: clamp(28px, 3.4vw, 42px); margin-bottom: 14px; }
+.panel > div > p { color: var(--mute); margin-bottom: 18px; }
+.ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.ticks li { padding-left: 30px; position: relative; }
+.ticks li::before { content: ''; position: absolute; left: 0; top: 7px; width: 16px; height: 9px; border-left: 2px solid var(--ac2); border-bottom: 2px solid var(--ac2); transform: rotate(-45deg); }
+.screen { padding: 18px; min-height: 320px; box-shadow: 0 30px 60px rgba(0,0,0,.18); }
+.screen .bar { display: flex; gap: 6px; margin-bottom: 14px; }
+.screen .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.mrow { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.mrow small { color: var(--mute); display: block; font-size: 13px; }
+.chip { font: 700 11px var(--body); letter-spacing: .06em; text-transform: uppercase; padding: 4px 9px; border-radius: var(--rb); border: 1px solid var(--line); white-space: nowrap; }
+.chip.ok { background: var(--ac); color: var(--acfg); border-color: var(--ac); }
+.chip.wait { color: var(--ac2); border-color: var(--ac2); }
+.slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+.slots span { text-align: center; padding: 9px 0; border: 1px solid var(--line); border-radius: var(--rb); font-size: 14px; }
+.slots span.on { background: var(--ac); color: var(--acfg); border-color: var(--ac); }
+.slots span.full { opacity: .35; text-decoration: line-through; }
+
+/* features */
+.feats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.feats > div { background: var(--bg); padding: 26px 22px; }
+section.alt .feats > div { background: var(--bg2); }
+.feats b { display: block; font-size: 18px; margin-bottom: 6px; }
+.feats p { color: var(--mute); font-size: 15px; }
+
+/* live demo */
+.demo { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 28px; align-items: start; }
+.phone { border: 10px solid var(--fg); border-radius: 34px; padding: 18px; background: var(--card); }
+.phone h4 { font: var(--dw) 22px var(--display); margin: 0 0 4px; }
+.phone .svc { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.phone .svc button, .phone .slotb { appearance: none; border: 1px solid var(--line); background: transparent; color: var(--fg); padding: 8px 12px; border-radius: var(--rb); font: 600 14px var(--body); cursor: pointer; }
+.phone .svc button[aria-pressed=true], .phone .slotb[aria-pressed=true] { background: var(--ac); color: var(--acfg); border-color: var(--ac); }
+.phone .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.phone .slotb:disabled { opacity: .3; text-decoration: line-through; cursor: not-allowed; }
+.phone .go { width: 100%; margin-top: 14px; }
+.owner { padding: 20px; overflow-x: auto; }
+.chart { position: relative; display: grid; grid-template-columns: 110px repeat(9, minmax(52px, 1fr)); min-width: 620px; font-size: 13px; }
+.chart .h { padding: 8px 6px; color: var(--mute); border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.chart .who { padding: 16px 8px; border-bottom: 1px solid var(--line); font-weight: 700; }
+.chart .cell { border-bottom: 1px solid var(--line); border-left: 1px dashed var(--line); height: 54px; }
+.blk { position: absolute; height: 40px; border-radius: var(--rb); background: var(--ac); color: var(--acfg); padding: 4px 8px; font-size: 12px; font-weight: 700; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; display: flex; align-items: center; }
+.blk.new { animation: land .9s cubic-bezier(.16,1,.3,1); box-shadow: 0 0 0 3px var(--ac2); }
+@keyframes land { from { transform: translateY(-30px) scale(.9); opacity: .2; } }
+.demo-msg { margin-top: 14px; color: var(--mute); font-size: 15px; min-height: 24px; }
+
+/* steps */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; counter-reset: s; }
+.steps > div { padding: 26px; border-top: 3px solid var(--ac2); background: var(--card); border-radius: 0 0 var(--r) var(--r); }
+.steps em { font: var(--dw) 44px/1 var(--display); font-style: normal; color: var(--ac2); display: block; margin-bottom: 14px; }
+.steps b { font-size: 20px; display: block; margin-bottom: 6px; }
+.steps p { color: var(--mute); font-size: 15px; }
+
+/* industries */
+.inds { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.ind-list { display: grid; gap: 8px; }
+.ind-list button { appearance: none; text-align: left; border: 1px solid var(--line); background: transparent; color: var(--fg); padding: 16px 18px; border-radius: var(--r); font: var(--dw) 22px var(--display); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.ind-list button[aria-selected=true] { background: var(--ac); color: var(--acfg); border-color: var(--ac); }
+.ind-list button small { font: 500 14px var(--body); opacity: .75; }
+.ind-card { padding: 28px; }
+.ind-card h3 { font-size: 32px; margin-bottom: 8px; }
+.ind-card .words { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+.ind-card .words span { border: 1px solid var(--line); padding: 6px 12px; border-radius: var(--rb); font-size: 14px; }
+.ind-card .words span b { color: var(--ac2); }
+
+/* customer + roles + compare */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.bullets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.bullets div { padding: 18px; }
+.bullets b { display: block; margin-bottom: 4px; }
+.bullets p { color: var(--mute); font-size: 15px; }
+.ticket { padding: 0; overflow: hidden; max-width: 380px; margin: 0 auto; }
+.ticket .top { background: var(--ac); color: var(--acfg); padding: 18px 20px; font: var(--dw) 22px var(--display); }
+.ticket .code { padding: 18px 20px; border-bottom: 1px dashed var(--line); font: 700 28px ui-monospace, Menlo, monospace; letter-spacing: .12em; }
+.ticket .g { display: grid; grid-template-columns: 1fr 1fr; }
+.ticket .g div { padding: 12px 20px; border-bottom: 1px dashed var(--line); }
+.ticket .g small { display: block; color: var(--mute); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; }
+.dash { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.dash > div { background: var(--bg); padding: 22px; }
+section.alt .dash > div { background: var(--bg2); }
+.dash small { color: var(--mute); display: block; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+.dash b { font: var(--dw) 40px/1.1 var(--display); display: block; margin: 8px 0 4px; font-variant-numeric: tabular-nums; }
+.dash span { color: var(--mute); font-size: 14px; }
+.sample { margin-top: 12px; color: var(--mute); font-size: 13px; }
+.roles { width: 100%; border-collapse: collapse; font-size: 15px; }
+.roles th, .roles td { padding: 14px 12px; border-bottom: 1px solid var(--line); text-align: left; }
+.roles th { font: 700 13px var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+.roles td.y { color: var(--ac2); font-weight: 700; }
+.roles td.n { color: var(--mute); }
+.tablewrap { overflow-x: auto; }
+.vs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.vs > div { padding: 28px; }
+.vs h3 { font-size: 26px; margin-bottom: 14px; }
+.vs ul { margin: 0; padding-left: 20px; display: grid; gap: 10px; }
+.vs .with { background: var(--ac); color: var(--acfg); border-color: var(--ac); }
+
+/* pricing */
+.price-wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px; align-items: center; }
+.toggle { display: inline-flex; border: 1px solid var(--line); border-radius: var(--rb); overflow: hidden; margin-bottom: 18px; }
+.toggle button { appearance: none; border: 0; background: transparent; color: var(--mute); padding: 10px 18px; font: 600 15px var(--body); cursor: pointer; }
+.toggle button[aria-pressed=true] { background: var(--ac); color: var(--acfg); }
+.plan { padding: 34px; }
+.plan .amt { font: var(--dw) clamp(56px, 7vw, 84px)/1 var(--display); font-variant-numeric: tabular-nums; }
+.plan .per { color: var(--mute); }
+.plan .save { display: inline-block; margin-top: 10px; color: var(--ac2); font-weight: 700; }
+.plan ul { margin: 24px 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.plan li { padding-left: 28px; position: relative; }
+.plan li::before { content: ''; position: absolute; left: 0; top: 8px; width: 14px; height: 8px; border-left: 2px solid var(--ac2); border-bottom: 2px solid var(--ac2); transform: rotate(-45deg); }
+.price-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.price-top .toggle { margin-bottom: 0; }
+.free-strip { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; padding: 18px 24px; margin-bottom: 22px; border-radius: var(--r); background: var(--ac2); color: #ffffff; }
+.free-strip b { font: var(--dw) 26px var(--display); }
+.plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+.plans .plan { display: flex; flex-direction: column; position: relative; }
+.plans .plan h3 { font-size: 32px; }
+.plans .plan .for { color: var(--mute); margin: 6px 0 20px; }
+.plans .plan ul { flex: 1; }
+.plans .plan .limit { margin-top: 16px; padding: 10px 14px; border-radius: var(--rb); border: 1px dashed var(--line); display: inline-block; }
+.plan.best { background: var(--ac); color: var(--acfg); border-color: var(--ac); box-shadow: 0 30px 60px color-mix(in srgb, var(--ac) 35%, transparent); transform: translateY(-8px); }
+.plan.best .for, .plan.best .per { color: color-mix(in srgb, var(--acfg) 78%, transparent); }
+.plan.best .save { color: var(--acfg); }
+.plan.best li::before { border-color: var(--acfg); }
+.plan.best .limit { border-color: color-mix(in srgb, var(--acfg) 45%, transparent); }
+.plan.best .btn { background: var(--acfg); color: var(--ac); }
+.fee, .fee-band { margin-top: 18px; padding: 14px 18px; border-radius: var(--r); border: 2px solid var(--ac2); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.fee b, .fee-band b { font: var(--dw) 26px var(--display); color: var(--ac2); white-space: nowrap; }
+.fee-band { margin-top: 22px; }
+.fee-band span { color: var(--mute); flex: 1 1 280px; }
+.feetag { display: inline-block; margin-top: 6px; color: var(--ac2); }
+.extra { flex-basis: 100%; font: 700 12px var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--ac2); }
+.badge { position: absolute; top: -14px; right: 24px; background: var(--ac2); color: #ffffff; font: 700 12px var(--body); letter-spacing: .1em; text-transform: uppercase; padding: 6px 12px; border-radius: var(--rb); }
+
+/* faq */
+.faq { display: grid; gap: 10px; max-width: 860px; }
+.faq details { border: 1px solid var(--line); border-radius: var(--r); padding: 0 22px; background: var(--card); }
+.faq summary { cursor: pointer; padding: 20px 0; font-weight: 700; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; color: var(--ac2); font-size: 24px; line-height: 1; }
+.faq details[open] summary::after { content: '–'; }
+.faq details p { color: var(--mute); padding-bottom: 20px; max-width: 70ch; }
+
+/* contact */
+.contact { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: start; }
+.contact .big { font: var(--dw) clamp(38px, 5vw, 64px)/1.04 var(--display); }
+.reach { display: grid; gap: 12px; margin-top: 28px; }
+.reach div { padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.reach small { display: block; color: var(--mute); font-size: 13px; }
+.reach b { font-size: 20px; font-variant-numeric: tabular-nums; }
+form.card { padding: 28px; display: grid; gap: 16px; }
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+label.f { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+label.f input, label.f select, label.f textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg); color: var(--fg); font: 400 16px var(--body); }
+label.f textarea { min-height: 90px; resize: vertical; }
+label.f input:focus, label.f select:focus, label.f textarea:focus { outline: 2px solid var(--ac2); outline-offset: 1px; }
+.ok-msg { padding: 16px; border: 1px solid var(--ac2); border-radius: var(--r); }
+.ok-msg a { font-weight: 700; color: var(--ac2); }
+.finalband { padding: 56px; text-align: center; }
+.finalband h2 { font-size: clamp(34px, 5vw, 62px); margin-bottom: 14px; }
+.finalband p { color: var(--mute); margin-bottom: 26px; }
+.finalband .ctas { justify-content: center; }
+footer { padding-block: 40px 56px; border-top: 1px solid var(--line); color: var(--mute); font-size: 15px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+
+@media (max-width: 1000px) {
+  .why { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .why > div { border-right: 0; margin-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; }
+  .feats, .dash { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  section { padding-block: 64px; }
+  .links { display: none; }
+  .hero-grid, .panel, .demo, .inds, .two, .vs, .price-wrap, .contact, .plans { grid-template-columns: minmax(0, 1fr); }
+  .plan.best { transform: none; margin-top: 8px; }
+  .grid3 { grid-template-columns: minmax(0, 1fr); }
+  .hero .lead { font-size: 18px; }
+  .hv { min-height: 0; }
+}
+@media (max-width: 560px) {
+  .feats, .dash, .steps, .bullets, .f2, .why { grid-template-columns: minmax(0, 1fr); }
+  .bottle { width: 50px; height: 160px; } .bottle span { top: 58px; font-size: 10px; }
+  .hv2 .tray, .hv8 .rack { grid-template-columns: repeat(3, 1fr); }
+  .finalband { padding: 36px 20px; }
+  .nav .btn { padding: 10px 14px; font-size: 14px; }
+  .logo { font-size: 22px; }
+  .plan { padding: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .bottle i { height: 80%; } }
+</style>
+
+
+<header class="hero">
+  <div class="terrazzo"></div><div class="print"></div><div class="steam"></div><div class="steam"></div><div class="steam"></div><div class="zari"></div><div class="rain" id="rain"></div>
+  <div class="wrap">
+    <div class="nav">
+      <a class="logo" href="#top">Booking<b>Wale</b></a>
+      <nav class="links" aria-label="Sections"><a href="#tour">Product</a><a href="#features">Features</a><a href="clinic.html">Clinics</a><a href="salon.html">Salons</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+      <a class="btn" href="#demo-form">Book a free demo</a>
+    </div>
+    <div class="hero-grid" id="top">
+      <div class="load">
+        <h1>Every hour of your business, <em>beautifully booked.</em></h1>
+        <p class="lead">BookingWale gives your salon, clinic, parlour or spa its own online booking page and a simple admin panel. Clients pick a free time themselves. You see the whole day, staff by staff. Double bookings stop.</p>
+        <div class="ctas">
+          <a class="btn" href="#demo-form">Book a free demo</a>
+          <a class="btn ghost" href="https://wa.me/918407884073?text=Hi%2C%20I%20want%20to%20know%20about%20BookingWale" target="_blank" rel="noopener">WhatsApp +91 84078 84073</a>
+        </div>
+        <div class="offer"><span><b>First month free</b></span><span>Plans from <b class="num">₹1,000</b>/month</span><span>Yearly: <b>1 month free</b></span></div>
+      </div>
+      <div>
+        <div class="hv hv1" aria-hidden="true">
+          <div class="shelf"><div class="bottle"><i></i><span>10:00</span></div><div class="bottle"><i></i><span>11:30</span></div><div class="bottle free"><i></i><span>12:15</span></div><div class="bottle"><i></i><span>14:00</span></div><div class="bottle"><i></i><span>16:30</span></div></div>
+          <p class="shelf-note">Every slot fills as clients book. The empty one is still free.</p>
+        </div>
+        <div class="hv hv2" aria-hidden="true"><div class="tray"><div class="gem set">10:00</div><div class="gem">10:30</div><div class="gem ruby">11:00</div><div class="gem">11:30</div><div class="gem">12:00</div><div class="gem set">12:30</div><div class="gem">13:00</div><div class="gem ruby">13:30</div><div class="gem set">14:00</div><div class="gem">14:30</div><div class="gem">15:00</div><div class="gem set">15:30</div></div></div>
+        <div class="hv hv3" aria-hidden="true"><div class="beam"></div><div class="day"><div class="row"><b class="num">09:30</b><span>Riya · Haircut</span><span>Asha</span></div><div class="row"><b class="num">11:00</b><span class="lit">Meera · Bridal trial</span><span>Asha</span></div><div class="row"><b class="num">12:45</b><span>Dev · Beard</span><span>Ravi</span></div><div class="row"><b class="num">15:30</b><span>Nisha · Facial</span><span>Pooja</span></div><div class="row"><b class="num">18:00</b><span>Kabir · Colour</span><span>Ravi</span></div></div></div>
+        <div class="hv hv4" aria-hidden="true"><div class="app"><div class="r"><b>Today</b><span class="pill">8 bookings</span></div><div class="r"><span>10:00 · Riya · Haircut</span><span class="pill">Confirmed</span></div><div class="r"><span>11:30 · Meera · Facial</span><span class="pill">Confirmed</span></div><div class="r"><span>13:00 · Dev · Beard</span><span class="pill">Waiting</span></div><div class="r"><span>15:30 · Nisha · Hair spa</span><span class="pill">Confirmed</span></div></div></div>
+        <div class="hv hv5" aria-hidden="true"><div class="card"><div class="s"><span>Bridal makeup</span><b>4 h</b></div><div class="s"><span>Mehendi, full hands</span><b>2 h</b></div><div class="s"><span>Hair spa</span><b>1 h</b></div><div class="s"><span>Threading</span><b>15 min</b></div></div></div>
+        <div class="hv hv6" aria-hidden="true"><div class="arch"><p>Next appointment</p><div class="t num">11:30</div><p>Meera · with Asha</p></div></div>
+        <div class="hv hv7" aria-hidden="true"><div class="inlay"><i></i><i></i><i></i><i></i><b></b></div></div>
+        <div class="hv hv8" aria-hidden="true"><div class="rack"><div class="hook out">10:00<div class="k"></div></div><div class="hook">10:30<div class="k"></div></div><div class="hook">11:00<div class="k"></div></div><div class="hook out">11:30<div class="k"></div></div><div class="hook">12:00<div class="k"></div></div><div class="hook">12:30<div class="k"></div></div><div class="hook out">13:00<div class="k"></div></div><div class="hook">13:30<div class="k"></div></div></div></div>
+        <div class="hv hv9" aria-hidden="true"><div class="stones"><div class="stone">Massage · 11:00</div><div class="stone">Facial · 13:30</div><div class="stone">Free · 16:00</div></div></div>
+        <div class="hv hv11" aria-hidden="true"><div class="muslin">
+          <div class="motif"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg>10:00</div><div class="motif"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg>11:30</div><div class="motif free"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg>12:15</div>
+          <div class="motif"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg>14:00</div><div class="motif free"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg>15:00</div><div class="motif"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/></svg>16:30</div>
+          <p class="cap">Each booking is stitched in. Plain circles are still free.</p></div></div>
+        <div class="hv hv12" aria-hidden="true"><div class="thali"><div class="katori k1">10:00</div><div class="katori k2">11:30</div><div class="katori free k3">12:30</div><div class="katori k4">14:00</div><div class="katori k5">15:30</div><div class="katori free k6">17:00</div><div class="center">Today<br>4 of 6</div></div></div>
+        <div class="hv hv13" aria-hidden="true"><div class="enamel"><div class="tile">10:00</div><div class="tile pink">10:30</div><div class="tile free">11:00</div><div class="tile">11:30</div><div class="tile free">12:00</div><div class="tile pink">12:30</div><div class="tile">13:00</div><div class="tile">13:30</div><div class="tile free">14:00</div></div></div>
+        <div class="hv hv14" aria-hidden="true"><div class="pane"><span class="drop" style="left:12%"></span><span class="drop" style="left:38%;animation-delay:-.6s"></span><span class="drop" style="left:66%;animation-delay:-1.1s"></span><span class="drop" style="left:88%;animation-delay:-.3s"></span>
+          <div class="r"><b>Today · Shree Clinic</b><span>14 visits</span></div><div class="r"><span>10:00 · Mr. Shah · Consultation</span><b>Dr. Mehta</b></div><div class="r"><span>10:30 · Neha · Physiotherapy</span><b>Dr. Rao</b></div><div class="r"><span>11:15 · Kavya · Follow-up</span><b>Dr. Mehta</b></div><div class="r"><span>12:00 · Free</span><b>—</b></div></div></div>
+        <div class="hv hv15" aria-hidden="true"><div class="shop"><div class="pole"></div><div class="board"><h4>Today's chairs</h4><div class="r"><span>Haircut · Dev</span><span>10:00</span></div><div class="r"><span>Beard &amp; shave · Arjun</span><span>10:45</span></div><div class="r free"><span>Chair free</span><span>11:30</span></div><div class="r"><span>Fade · Kabir</span><span>12:15</span></div><div class="r"><span>Hair colour · Rohan</span><span>14:00</span></div></div></div></div>
+        <div class="hv hv10" aria-hidden="true"><div class="block"><div class="s"><span>Haircut</span><span>10:00</span></div><div class="s"><span>Consultation</span><span>11:15</span></div><div class="s"><span>Hair colour</span><span>13:00</span></div><div class="s"><span>Facial</span><span>15:30</span></div></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- problems -->
+  <section class="alt" id="problems">
+    <div class="wrap">
+      <div class="head"><span class="kick">The daily struggle</span><h2>Serving patients and clients is hard enough. Booking them shouldn't be.</h2><p>Most clinics, salons, parlours and spas still book on calls, WhatsApp and a diary at the reception. It works, until the day gets busy.</p></div>
+      <div class="grid3">
+        <div class="card prob"><span class="x">Phone all day</span><h3>Calls in the middle of a consultation</h3><p>Every booking means stopping work, checking the diary and calling back.</p></div>
+        <div class="card prob"><span class="x">Double bookings</span><h3>Two people, one slot, same time</h3><p>A slot given on WhatsApp and again at the reception. Someone waits, someone leaves.</p></div>
+        <div class="card prob"><span class="x">No-shows</span><h3>Empty slots you could have filled</h3><p>Patients and clients forget. Without a reminder the hour is lost.</p></div>
+        <div class="card prob"><span class="x">Scattered chats</span><h3>Appointments buried in WhatsApp</h3><p>Who booked what, with which doctor or stylist, at what time? Scrolling chats is not a system.</p></div>
+        <div class="card prob"><span class="x">Staff confusion</span><h3>Which doctor is in today?</h3><p>Different hours, OPD days, leave and breaks for every doctor and staff member, kept in someone's head.</p></div>
+        <div class="card prob"><span class="x">No clear picture</span><h3>How did today actually go?</h3><p>Visits, payments and new patients only add up at the end of the month, if at all.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- why -->
+  <section id="why">
+    <div class="wrap">
+      <div class="head"><span class="kick">Why BookingWale</span><h2>One system for the whole day, from the first booking to the last payment.</h2></div>
+      <div class="why">
+        <div><b>Your own booking page</b><p>A link with your name, colours and services. Share it on Instagram, WhatsApp and Google.</p></div>
+        <div><b>No double bookings</b><p>The slot engine checks hours, breaks, leave and existing bookings before it offers a time.</p></div>
+        <div><b>Doctor &amp; staff-wise schedule</b><p>See every doctor's or stylist's day side by side. Each one can have their own hours.</p></div>
+        <div><b>Your words, your look</b><p>Call them Doctors, Stylists or Therapists; Patients or Clients. Change colours, services and fields without code.</p></div>
+        <div><b>WhatsApp reminders</b><p>Confirmations and reminders go out on WhatsApp, so patients and clients turn up on time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- tour -->
+  <section class="alt" id="tour">
+    <div class="wrap">
+      <div class="head"><span class="kick">Product tour</span><h2>See every part of BookingWale.</h2><p>Your clients use the booking page. You and your team use the admin panel. Here is what each screen does.</p></div>
+      <div class="tabs" role="tablist" aria-label="Product screens">
+        <button role="tab" aria-selected="true" data-tab="p1">Booking page</button><button role="tab" aria-selected="false" data-tab="p2">Today</button><button role="tab" aria-selected="false" data-tab="p3">Bookings</button><button role="tab" aria-selected="false" data-tab="p4">Services &amp; staff</button><button role="tab" aria-selected="false" data-tab="p5">Hours &amp; leave</button><button role="tab" aria-selected="false" data-tab="p6">Payments</button><button role="tab" aria-selected="false" data-tab="p7">Reminders</button><button role="tab" aria-selected="false" data-tab="p8">Your look</button>
+      </div>
+
+      <div class="panel" id="p1" role="tabpanel">
+        <div><h3>A booking page patients and clients actually finish.</h3><p>Three steps on any phone: choose the service, pick a time, enter name and mobile number. They get a booking code instantly.</p>
+          <ul class="ticks"><li>Services shown like a price list, with time and fee</li><li>Choose a doctor or stylist, or "anyone free"</li><li>Only real free times are shown, for the next weeks</li><li>Find, view or cancel with the code and mobile number</li></ul></div>
+        <div class="card screen"><div class="bar"><i></i><i></i><i></i></div><div class="mrow"><span>Shree Clinic · Consultation<small>15 min · Dr. Mehta</small></span><b class="num">₹500</b></div><div class="mrow"><span>Follow-up visit<small>10 min</small></span><b class="num">₹300</b></div><div class="mrow"><span>Physiotherapy session<small>45 min · Dr. Rao</small></span><b class="num">₹800</b></div><div class="slots"><span class="full">10:00</span><span>10:30</span><span class="on">11:00</span><span>11:30</span><span class="full">12:00</span><span>12:30</span><span>13:00</span><span>13:30</span></div></div>
+      </div>
+      <div class="panel" id="p2" role="tabpanel" hidden>
+        <div><h3>Your whole day on one chart.</h3><p>Doctors or staff down the side, time across. Every appointment is a block exactly as long as the service.</p>
+          <ul class="ticks"><li>Next patient, today's count and waiting list at the top</li><li>New and changed bookings are highlighted until you open them</li><li>Add a walk-in at the reception in seconds</li><li>Refreshes on its own through the day</li></ul></div>
+        <div class="card screen"><div class="bar"><i></i><i></i><i></i></div><div class="mrow"><b>Next · 11:15</b><span class="chip ok">Kavya · Follow-up</span></div><div class="mrow"><span>Dr. Mehta<small>Physician · 9 visits</small></span><span class="chip ok">10:00 · 10:15 · 11:15</span></div><div class="mrow"><span>Dr. Rao<small>Physiotherapist · 4 sessions</small></span><span class="chip wait">12:30 waiting</span></div><div class="mrow"><span>Dr. Iyer<small>Dentist · on leave today</small></span><span class="chip">Leave</span></div><div class="mrow"><span>Visits today</span><b class="num">14</b></div></div>
+      </div>
+      <div class="panel" id="p3" role="tabpanel" hidden>
+        <div><h3>Every booking, searchable.</h3><p>Filter by date, status or staff. Search by name, phone or booking code.</p>
+          <ul class="ticks"><li>Confirm, complete, cancel or mark no-show</li><li>Reschedule to another free time</li><li>Each booking keeps its services, fee and notes</li><li>Patient and client history in one tap</li></ul></div>
+        <div class="card screen"><div class="bar"><i></i><i></i><i></i></div><div class="mrow"><span>11:15 · Kavya Patel<small>Follow-up · Dr. Mehta · BK-4KQ7RT</small></span><span class="chip ok">Confirmed</span></div><div class="mrow"><span>12:30 · Dev Shah<small>Beard · Ravi · BK-9PL2WQ</small></span><span class="chip wait">Waiting</span></div><div class="mrow"><span>14:00 · Riya Mehta<small>Haircut · Asha · BK-7TZ1MN</small></span><span class="chip ok">Confirmed</span></div><div class="mrow"><span>16:00 · Kabir Joshi<small>Hair colour · Ravi · BK-2HD8SX</small></span><span class="chip">Done</span></div></div>
+      </div>
+      <div class="panel" id="p4" role="tabpanel" hidden>
+        <div><h3>Your menu and your team, your way.</h3><p>Add services with time, price, cleanup gap and category. Decide who can do what.</p>
+          <ul class="ticks"><li>Hide a service from the booking page any time</li><li>Per-staff price or duration if a senior charges more</li><li>Staff profiles with title and short bio for clients</li><li>Turn a staff member off for online booking with one switch</li></ul></div>
+        <div class="card screen"><div class="bar"><i></i><i></i><i></i></div><div class="mrow"><span>Hair · Haircut<small>30 min + 5 min gap · 3 staff</small></span><b class="num">₹300</b></div><div class="mrow"><span>Hair · Keratin<small>2 h 30 min · Ravi only</small></span><b class="num">₹4,500</b></div><div class="mrow"><span>Skin · Facial<small>1 h · Pooja, Asha</small></span><b class="num">₹900</b></div><div class="mrow"><span>Bridal · Makeup<small>4 h · Asha</small></span><b class="num">₹12,000</b></div></div>
+      </div>
+      <div class="panel" id="p5" role="tabpanel" hidden>
+        <div><h3>OPD hours, holidays and leave, handled.</h3><p>Set opening hours per weekday. Add festival holidays or short days. Mark a doctor's or staff member's leave.</p>
+          <ul class="ticks"><li>Each doctor can follow clinic hours or their own OPD timings</li><li>Minimum notice, so nobody books ten minutes ahead</li><li>Book up to a set number of days in advance</li><li>Closed days and leave disappear from the booking page automatically</li></ul></div>
+        <div class="card screen"><div class="bar"><i></i><i></i><i></i></div><div class="mrow"><span>Monday – Saturday</span><b class="num">10:00 – 20:00</b></div><div class="mrow"><span>Sunday</span><span class="chip">Closed</span></div><div class="mrow"><span>Diwali · 1 Nov</span><span class="chip wait">Holiday</span></div><div class="mrow"><span>Dr. Iyer · 12–14 Nov</span><span class="chip wait">Leave</span></div><div class="mrow"><span>Minimum notice</span><b class="num">60 min</b></div></div>
+      </div>
+      <div class="panel" id="p6" role="tabpanel" hidden>
+        <div><h3>Payments, advances and refunds.</h3><p>Record cash, UPI or card at the reception. Collect an online advance at the time of booking for big services, and refund from the panel.</p>
+          <ul class="ticks"><li>Paid, part-paid and due shown on every booking</li><li>Online advance holds the slot while the patient pays</li><li>Refund a payment in one tap</li><li>Cash, UPI and card at the counter are free to record</li></ul>
+          <p class="fee"><b>2.5% + GST</b> extra on every online transaction, charged separately from your plan</p></div>
+        <div class="card screen"><div class="bar"><i></i><i></i><i></i></div><div class="mrow"><span>BK-4KQ7RT · Consultation</span><b class="num">₹500</b></div><div class="mrow"><span>UPI<small>Paid at reception · no fee</small></span><span class="chip ok">₹500 paid</span></div><div class="mrow"><span>BK-8BRD21 · Bridal makeup</span><b class="num">₹12,000</b></div><div class="mrow"><span>Online advance<small>Paid at booking · 2.5% + GST</small></span><span class="chip ok">₹2,000 paid</span></div><div class="mrow"><span>Due at venue</span><b class="num">₹10,000</b></div></div>
+      </div>
+      <div class="panel" id="p7" role="tabpanel" hidden>
+        <div><h3>WhatsApp reminders that bring patients back on time.</h3><p>Booking confirmations, changes, cancellations and reminders go out on WhatsApp automatically.</p>
+          <ul class="ticks"><li>Sent on WhatsApp, the app everyone already uses</li><li>Edit every message with your own words</li><li>Reminders a day before and a few hours before</li><li>Booking code and timing in every message</li></ul></div>
+        <div class="card screen"><div class="bar"><i></i><i></i><i></i></div><div class="mrow"><span>WhatsApp · Booking confirmed<small>"Hi Kavya, your follow-up with Dr. Mehta at 11:15 tomorrow is confirmed. Code BK-4KQ7RT."</small></span><span class="chip ok">On</span></div><div class="mrow"><span>Reminder · 24 h before</span><span class="chip ok">On</span></div><div class="mrow"><span>Reminder · 2 h before</span><span class="chip ok">On</span></div><div class="mrow"><span>Booking cancelled</span><span class="chip ok">On</span></div></div>
+      </div>
+      <div class="panel" id="p8" role="tabpanel" hidden>
+        <div><h3>It looks like your brand, not ours.</h3><p>Pick your colours, logo, banner and tagline. Rename every word to fit your business.</p>
+          <ul class="ticks"><li>Live preview while you change it</li><li>Show or hide fees and doctor/staff choice</li><li>Ask extra questions: age, allergies, reason for visit, hair type</li><li>Business types come with ready services and words</li></ul></div>
+        <div class="card screen"><div class="bar"><i></i><i></i><i></i></div><div class="mrow"><span>Header colour</span><span class="chip ok">Your colour</span></div><div class="mrow"><span>"Staff" is called</span><b>Doctor / Stylist / Therapist</b></div><div class="mrow"><span>"Customer" is called</span><b>Patient / Client / Guest</b></div><div class="mrow"><span>Extra question</span><b>Reason for visit · required</b></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- features -->
+  <section id="features">
+    <div class="wrap">
+      <div class="head"><span class="kick">Everything included</span><h2>Every feature, in one plan.</h2><p>No add-ons and no locked modules. This is what you get from the first day.</p></div>
+      <div class="feats">
+        <div><b>Online booking page</b><p>Your own link for patients and clients to book 24×7.</p></div>
+        <div><b>Smart slot engine</b><p>Hours, breaks, buffers, leave and bookings checked for every time shown.</p></div>
+        <div><b>Double-booking guard</b><p>Checked twice, in the app and in the database.</p></div>
+        <div><b>Doctor &amp; staff chart</b><p>Every doctor's or staff member's day side by side.</p></div>
+        <div><b>Walk-in bookings</b><p>Add a booking from the reception in seconds.</p></div>
+        <div><b>Reschedule &amp; cancel</b><p>Move a booking to another free time.</p></div>
+        <div><b>Patient &amp; client records</b><p>Phone, notes and full visit history.</p></div>
+        <div><b>Block a no-show</b><p>Stop repeat no-shows from booking online.</p></div>
+        <div><b>WhatsApp reminders</b><p>Confirmations and reminders on WhatsApp, in your words.</p></div>
+        <div><b>Custom fields</b><p>Ask anything you need: age, allergies, reason for visit.</p></div>
+        <div><b>Holidays &amp; leave</b><p>Closed days vanish from the booking page.</p></div>
+        <div><b>Booking rules</b><p>Slot step, notice time, advance days, cancel window.</p></div>
+        <div><b>Your own look</b><p>Colours, logo, banner, tagline and words.</p></div>
+        <div><b>Your own data</b><p>Every business gets its own separate database.</p></div>
+        <div><b>Payments &amp; refunds</b><p>Cash, UPI, card and online advances. <b class="feetag">Online: 2.5% + GST extra</b></p></div>
+        <div><b>Ready presets</b><p>Clinic, salon, parlour and spa start with their own words and services.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- live demo -->
+  <section class="alt" id="try">
+    <div class="wrap">
+      <div class="head"><span class="kick">Try it yourself</span><h2>Book on the left. Watch it land on the right.</h2><p>This is a working sample. Pick a service and a time, then confirm.</p></div>
+      <div class="demo">
+        <div class="phone" aria-label="Sample booking page">
+          <div class="svc" role="group" aria-label="Sample business" id="bizpick" style="margin-top:0"><button aria-pressed="true" data-biz="clinic">Clinic</button><button aria-pressed="false" data-biz="salon">Salon</button></div>
+          <h4 id="bizname">Shree Clinic</h4><p style="color:var(--mute);font-size:14px">Sample booking page</p>
+          <div class="svc" role="group" aria-label="Service" id="svcpick"></div>
+          <div class="grid" id="slotgrid" role="group" aria-label="Time"></div>
+          <button class="btn go" id="confirm">Confirm booking</button>
+          <p class="demo-msg" id="demomsg" aria-live="polite"></p>
+        </div>
+        <div class="card owner" aria-label="Sample owner chart"><div class="chart" id="chart"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- steps -->
+  <section id="how">
+    <div class="wrap">
+      <div class="head"><span class="kick">How it works</span><h2>Live in a day. We set it up with you.</h2></div>
+      <div class="steps">
+        <div><em>1</em><b>Free demo</b><p>We show BookingWale on a call or at your shop and understand how you work.</p></div>
+        <div><em>2</em><b>We set it up</b><p>Your services, prices, staff, hours and colours, entered for you.</p></div>
+        <div><em>3</em><b>Share your link</b><p>Put it on Instagram bio, WhatsApp status and Google Business.</p></div>
+        <div><em>4</em><b>Bookings come in</b><p>Clients book themselves. You run the day from the chart.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- industries -->
+  <section class="alt" id="industries">
+    <div class="wrap">
+      <div class="head"><span class="kick">Who it's for</span><h2>Made for businesses that run on appointments.</h2><p>Pick your business type and BookingWale starts with the right words, services and questions.</p></div>
+      <div class="inds">
+        <div class="ind-list" role="tablist" aria-label="Business types">
+          <button role="tab" aria-selected="true" data-ind="0">Hair salon <small>Unisex · Men · Women</small></button>
+          <button role="tab" aria-selected="false" data-ind="1">Beauty parlour <small>Bridal · Skin</small></button>
+          <button role="tab" aria-selected="false" data-ind="2">Clinic <small>Doctors · Dental · Physio</small></button>
+          <button role="tab" aria-selected="false" data-ind="3">Spa &amp; wellness <small>Massage · Therapy</small></button>
+          <button role="tab" aria-selected="false" data-ind="4">Any appointment business <small>Tutors · Consultants</small></button>
+        </div>
+        <div class="card ind-card" id="indcard" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- customer + dashboard -->
+  <section id="experience">
+    <div class="wrap two">
+      <div>
+        <span class="kick">For your clients</span>
+        <h2 style="font-size:clamp(32px,4.4vw,54px)">A booking experience your patients and clients will like.</h2>
+        <div class="bullets" style="margin-top:28px">
+          <div class="card"><b>No app to download</b><p>Opens in any phone browser.</p></div>
+          <div class="card"><b>Booking code</b><p>A ticket with date, time and staff.</p></div>
+          <div class="card"><b>Self cancel</b><p>Inside your cancellation window.</p></div>
+          <div class="card"><b>WhatsApp reminder</b><p>So they don't forget the visit.</p></div>
+        </div>
+      </div>
+      <div class="card ticket" aria-hidden="true">
+        <div class="top">Booking confirmed</div>
+        <div class="code">BK-4KQ7RT</div>
+        <div class="g"><div><small>Date</small><b>Thu, 13 Nov</b></div><div><small>Time</small><b class="num">11:15</b></div><div><small>Doctor</small><b>Dr. Mehta</b></div><div><small>Visit</small><b>Follow-up</b></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="dashboard">
+    <div class="wrap">
+      <div class="head"><span class="kick">For you</span><h2>Know how today is going, any time.</h2></div>
+      <div class="dash">
+        <div><small>Appointments today</small><b>18</b><span>4 still to come</span></div>
+        <div><small>Waiting to confirm</small><b>3</b><span>From the booking page</span></div>
+        <div><small>Booked online</small><b>11</b><span>Without a single call</span></div>
+        <div><small>This month</small><b>312</b><span>41 new patients &amp; clients</span></div>
+      </div>
+      <p class="sample">Sample figures for illustration.</p>
+    </div>
+  </section>
+
+  <!-- vs -->
+  <section class="alt" id="compare">
+    <div class="wrap">
+      <div class="head"><span class="kick">The difference</span><h2>Before and after BookingWale.</h2></div>
+      <div class="vs">
+        <div class="card"><h3>Diary, calls and WhatsApp</h3><ul><li>Booking only when someone picks up the phone</li><li>Clashes when two people write in the same diary</li><li>No reminders, more no-shows</li><li>Staff schedules in someone's head</li><li>Totals at the end of the month</li></ul></div>
+        <div class="card with"><h3>With BookingWale</h3><ul><li>Patients and clients book 24×7 from your link</li><li>Only truly free times are offered</li><li>Automatic WhatsApp confirmations and reminders</li><li>Every doctor's or staff member's day on one chart</li><li>Today's appointments at a glance</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- security -->
+  <section id="trust">
+    <div class="wrap">
+      <div class="head"><span class="kick">Safe and private</span><h2>Your patient and client list stays yours.</h2></div>
+      <div class="vs">
+        <div class="card prob"><h3>Separate database</h3><p>Every clinic, salon or spa on BookingWale gets its own database. Your records never sit in a shared table with another business.</p></div>
+        <div class="card prob"><h3>Protected sign-in</h3><p>Passwords are stored hashed, never as plain text. Patients see only their own booking, and only with their code and mobile number.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- pricing -->
+  <section class="alt" id="pricing">
+    <div class="wrap">
+      <div class="price-top">
+        <div>
+          <span class="kick">Pricing</span>
+          <h2 style="font-size:clamp(36px,5vw,64px)">Simple plans. First month free.</h2>
+          <p style="color:var(--mute);margin-top:16px;max-width:56ch">No setup fee and no per-booking charge. Both plans include every feature. The only difference is how many services you list.</p>
+        </div>
+        <div class="toggle" role="group" aria-label="Billing"><button aria-pressed="true" data-bill="m">Monthly</button><button aria-pressed="false" data-bill="y">Yearly · 1 month free</button></div>
+      </div>
+      <div class="free-strip"><b>First month free</b><span>Use BookingWale with your real patients and clients for a full month before you pay anything.</span></div>
+      <div class="plans">
+        <div class="card plan">
+          <h3>Starter</h3>
+          <p class="for">For small clinics and salons with a short service list.</p>
+          <div><span class="amt" data-m="₹1,000" data-y="₹11,000">₹1,000</span> <span class="per" data-m="/ month" data-y="/ year">/ month</span></div>
+          <span class="save" data-m="After your free first month" data-y="Pay for 11 months, get 12. Save ₹1,000.">After your free first month</span>
+          <p class="limit"><b>Up to 5 services</b></p>
+          <ul><li>Your own online booking page</li><li>Doctor &amp; staff schedule chart</li><li>WhatsApp confirmations and reminders</li><li>OPD hours, holidays and leave</li><li>Custom fields, colours and words</li><li>Setup help and WhatsApp support</li></ul>
+          <a class="btn ghost" href="#demo-form" style="width:100%">Start free month</a>
+        </div>
+        <div class="card plan best">
+          <span class="badge">Best value</span>
+          <h3>Unlimited</h3>
+          <p class="for">For busy clinics, salons, parlours and spas with a full menu.</p>
+          <div><span class="amt" data-m="₹1,500" data-y="₹16,500">₹1,500</span> <span class="per" data-m="/ month" data-y="/ year">/ month</span></div>
+          <span class="save" data-m="After your free first month" data-y="Pay for 11 months, get 12. Save ₹1,500.">After your free first month</span>
+          <p class="limit"><b>Unlimited services</b></p>
+          <ul><li>Everything in Starter</li><li>Add every consultation, treatment and package</li><li>Best for multi-doctor clinics and full-service salons</li><li>Priority WhatsApp support</li></ul>
+          <a class="btn" href="#demo-form" style="width:100%">Start free month</a>
+        </div>
+      </div>
+      <div class="fee-band"><span class="extra">Extra · not included in plans</span><b>2.5% + GST</b><span>on every online transaction, if you take online payments and advances through your booking page. Charged separately from your plan. Cash, UPI and card you record at the counter have no fee.</span></div>
+    </div>
+  </section>
+
+  <!-- faq -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head"><span class="kick">FAQ</span><h2>Questions owners ask us.</h2></div>
+      <div class="faq">
+        <details><summary>What exactly is BookingWale?</summary><p>An online booking page for your patients or clients, plus an admin panel for you. They book free times themselves; you manage appointments, doctors or staff, hours and WhatsApp reminders in one place.</p></details>
+        <details><summary>Does it work for clinics?</summary><p>Yes. Clinics start with doctor and patient words, consultation and follow-up services, and questions like reason for visit. Each doctor can have their own OPD timings and leave.</p></details>
+        <details><summary>Do patients need to install an app?</summary><p>No. Your booking page opens in any phone browser from a link you share on WhatsApp, Instagram or Google.</p></details>
+        <details><summary>Can each doctor or stylist have different hours?</summary><p>Yes. Each one can follow the business hours or have their own, with leave days marked separately.</p></details>
+        <details><summary>How do you stop double bookings?</summary><p>A time is offered only if a doctor or staff member is free for the whole service, including gaps between appointments. The booking is checked again when it is saved, so two people cannot take the same slot.</p></details>
+        <details><summary>How do reminders work?</summary><p>Confirmations, changes, cancellations and reminders are sent on WhatsApp, a day before and a few hours before the appointment. You can edit the message text.</p></details>
+        <details><summary>Are there charges on online payments?</summary><p>Yes, as an extra that is not part of your plan price. Every online transaction (an advance or payment made through your booking page) is charged 2.5% + GST. If you don't take online payments, you pay nothing extra. Cash, UPI and card payments you record at the counter have no fee.</p></details>
+        <details><summary>Which plan do I need?</summary><p>Both plans include every feature. Starter lets you list up to 5 services for ₹1,000 a month. Unlimited lets you list as many as you want for ₹1,500 a month.</p></details>
+        <details><summary>What happens after the free month?</summary><p>You continue on Starter at ₹1,000 a month or Unlimited at ₹1,500 a month. On a yearly plan you pay for 11 months and get 12. If you don't continue, nothing is charged.</p></details>
+        <details><summary>How long does setup take?</summary><p>Usually a day. We enter your services, doctors or staff, hours and colours with you.</p></details>
+        <details><summary>Will it look like my brand?</summary><p>Yes. You choose the colours, logo, banner and tagline, and rename words like doctor, patient and appointment.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section class="alt" id="demo-form">
+    <div class="wrap contact">
+      <div>
+        <span class="kick">Get started</span>
+        <p class="big">Book a free demo. We'll set up your booking page with you.</p>
+        <div class="reach">
+          <div class="card"><span><small>WhatsApp / Phone</small><b id="phone">+91 84078 84073</b></span><button class="btn ghost" id="copyphone" type="button">Copy number</button></div>
+          <div class="card"><span><small>Chat now</small><b>WhatsApp us</b></span><a class="btn" href="https://wa.me/918407884073?text=Hi%2C%20I%20want%20a%20BookingWale%20demo" target="_blank" rel="noopener">Open WhatsApp</a></div>
+        </div>
+      </div>
+      <form class="card" id="lead" novalidate>
+        <div class="f2">
+          <label class="f" for="f-name">Your name<input id="f-name" required autocomplete="name"></label>
+          <label class="f" for="f-biz">Business name<input id="f-biz" required></label>
+        </div>
+        <div class="f2">
+          <label class="f" for="f-type">Business type<select id="f-type"><option>Hair salon</option><option>Beauty parlour</option><option>Clinic</option><option>Spa &amp; wellness</option><option>Other</option></select></label>
+          <label class="f" for="f-staff">Staff<select id="f-staff"><option>1</option><option>2–5</option><option>6–15</option><option>15+</option></select></label>
+        </div>
+        <div class="f2">
+          <label class="f" for="f-phone">WhatsApp number<input id="f-phone" type="tel" inputmode="tel" required autocomplete="tel"></label>
+          <label class="f" for="f-city">City<input id="f-city" autocomplete="address-level2"></label>
+        </div>
+        <label class="f" for="f-msg">Anything we should know? (optional)<textarea id="f-msg"></textarea></label>
+        <button class="btn" type="submit">Request my free demo</button>
+        <div id="leadout" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap"><div class="card finalband"><h2>Your next client is ready to book.</h2><p>Give them a link. Start with a free month.</p><div class="ctas"><a class="btn" href="#demo-form">Book a free demo</a><a class="btn ghost" href="#pricing">See pricing</a></div></div></div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span class="logo" style="font-size:20px">Booking<b>Wale</b></span><nav aria-label="Business types" style="display:flex;gap:18px;flex-wrap:wrap"><a href="clinic.html" style="text-decoration:none">Clinics</a><a href="salon.html" style="text-decoration:none">Salons</a><a href="beauty-parlour.html" style="text-decoration:none">Beauty parlours</a><a href="spa.html" style="text-decoration:none">Spas</a></nav><span class="num">+91 84078 84073</span></div></footer>
+
+<script>
+(() => {
+  // final design: Monsoon Glass in olive
+  document.documentElement.dataset.t = '14';
+  // monsoon rain streaks (only visible in design 14)
+  const rain = document.getElementById('rain');
+  for (let i = 0; i < 28; i++) { const d = document.createElement('i'); d.style.left = `${Math.random() * 100}%`; d.style.animationDelay = `${-Math.random() * 1.3}s`; d.style.animationDuration = `${1 + Math.random() * .8}s`; rain.appendChild(d); }
+
+  // product tour tabs
+  const tabs = document.querySelectorAll('#tour [role=tab]');
+  tabs.forEach((b) => b.addEventListener('click', () => {
+    tabs.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    document.querySelectorAll('#tour .panel').forEach((p) => (p.hidden = p.id !== b.dataset.tab));
+  }));
+
+  // industries
+  const IND = [
+    { f: 'salon.html', h: 'Hair salons', p: 'For unisex, men’s and ladies’ salons. Clients pick a stylist or the first one free.', w: [['Staff', 'Stylists'], ['Booking', 'Appointment'], ['Client', 'Client']], s: 'Haircut, Hair colour, Hair spa, Keratin, Beard trim', q: 'Hair type' },
+    { f: 'beauty-parlour.html', h: 'Beauty parlours', p: 'Bridal packages, facials, waxing and threading, each with its own time and beautician.', w: [['Staff', 'Beauticians'], ['Service', 'Treatment'], ['Client', 'Client']], s: 'Cleanup, Facial, Waxing, Threading, Bridal makeup', q: 'Skin type' },
+    { f: 'clinic.html', h: 'Clinics', p: 'Doctors, dentists and physiotherapists. Patients book consultations; each doctor keeps their own hours.', w: [['Staff', 'Doctors'], ['Booking', 'Visit'], ['Client', 'Patient']], s: 'Consultation, Follow-up, Physiotherapy session, Dental cleaning', q: 'Allergies, reason for visit' },
+    { f: 'spa.html', h: 'Spas & wellness', p: 'Massages and therapies with cleanup time between sessions handled automatically.', w: [['Staff', 'Therapists'], ['Booking', 'Session'], ['Client', 'Guest']], s: 'Swedish massage, Deep tissue, Body polish, Foot reflexology', q: 'Pressure preference' },
+    { h: 'Any appointment business', p: 'Tutors, consultants, studios and services. Rename every word and build your own service list.', w: [['Staff', 'Your word'], ['Booking', 'Your word'], ['Client', 'Your word']], s: 'Your own services, prices and durations', q: 'Any question you need' },
+  ];
+  const card = document.getElementById('indcard');
+  const showInd = (i) => {
+    const d = IND[i];
+    card.innerHTML = `<h3>${d.h}</h3><p style="color:var(--mute)">${d.p}</p><div class="words">${d.w.map(([a, b]) => `<span>${a} → <b>${b}</b></span>`).join('')}</div><p><b>Starts with:</b> ${d.s}</p><p style="margin-top:8px"><b>Extra question:</b> ${d.q}</p>${d.f ? `<a class="btn ghost" style="margin-top:20px" href="${d.f}">See BookingWale for ${d.h.toLowerCase()} →</a>` : ''}`;
+    document.querySelectorAll('.ind-list button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.ind === String(i))));
+  };
+  document.querySelectorAll('.ind-list button').forEach((b) => b.addEventListener('click', () => showInd(Number(b.dataset.ind))));
+  showInd(0);
+
+  // live demo: a clinic or a salon, 30-minute columns from 10:00
+  const BIZ = {
+    clinic: { name: 'Shree Clinic', staff: ['Dr. Mehta', 'Dr. Rao', 'Dr. Iyer'], who: 'doctor', svc: [['Consultation', 1, '30 min'], ['Physiotherapy', 2, '1 h'], ['Dental cleaning', 3, '1 h 30']], booked: [{ s: 0, c: 0, len: 1, n: 'Mr. Shah' }, { s: 1, c: 2, len: 2, n: 'Neha' }, { s: 2, c: 1, len: 3, n: 'Arjun' }, { s: 0, c: 4, len: 1, n: 'Kavya' }] },
+    salon: { name: 'Glow & Co. Salon', staff: ['Asha', 'Ravi', 'Pooja'], who: 'stylist', svc: [['Haircut', 1, '30 min'], ['Facial', 2, '1 h'], ['Hair colour', 3, '1 h 30']], booked: [{ s: 0, c: 0, len: 2, n: 'Riya' }, { s: 1, c: 2, len: 3, n: 'Kabir' }, { s: 2, c: 1, len: 2, n: 'Nisha' }, { s: 0, c: 5, len: 1, n: 'Dev' }] },
+  };
+  let biz = 'clinic', STAFF = BIZ.clinic.staff, booked = BIZ.clinic.booked.map((x) => ({ ...x }));
+  const START = 10;
+  const chart = document.getElementById('chart');
+  const label = (c) => { const m = START * 60 + c * 30; return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`; };
+  let svcLen = 1, svcName = 'Consultation', pick = null;
+  function drawServices() {
+    const box = document.getElementById('svcpick');
+    box.innerHTML = '';
+    BIZ[biz].svc.forEach(([n, len, t], i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.textContent = `${n} · ${t}`; b.setAttribute('aria-pressed', String(i === 0));
+      b.addEventListener('click', () => { box.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); svcLen = len; svcName = n; pick = null; drawSlots(); });
+      box.appendChild(b);
+    });
+    [svcName, svcLen] = [BIZ[biz].svc[0][0], BIZ[biz].svc[0][1]];
+  }
+  document.querySelectorAll('#bizpick button').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('#bizpick button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    biz = b.dataset.biz; STAFF = BIZ[biz].staff; booked = BIZ[biz].booked.map((x) => ({ ...x }));
+    document.getElementById('bizname').textContent = BIZ[biz].name;
+    document.getElementById('demomsg').textContent = '';
+    pick = null; drawServices(); drawChart(); drawSlots();
+  }));
+  drawServices();
+  const freeStaff = (c, len) => STAFF.findIndex((_, s) => c + len <= 9 && !booked.some((b) => b.s === s && c < b.c + b.len && b.c < c + len));
+  function drawChart(fresh) {
+    let html = '<div class="h">Staff</div>' + Array.from({ length: 9 }, (_, c) => `<div class="h">${c % 2 === 0 ? label(c) : ''}</div>`).join('');
+    STAFF.forEach((n) => { html += `<div class="who">${n}</div>` + '<div class="cell"></div>'.repeat(9); });
+    html = html.replace('<div class="h">Staff</div>', `<div class="h">${biz === 'clinic' ? 'Doctor' : 'Stylist'}</div>`);
+    chart.innerHTML = html;
+    const w = (chart.scrollWidth - 110) / 9;
+    booked.forEach((b, i) => {
+      const el = document.createElement('div');
+      el.className = 'blk' + (fresh === i ? ' new' : '');
+      el.textContent = `${b.n} · ${label(b.c)}`;
+      el.style.left = `${110 + b.c * w + 2}px`;
+      el.style.width = `${b.len * w - 4}px`;
+      el.style.top = `${37 + b.s * 55 + 7}px`;
+      chart.appendChild(el);
+    });
+  }
+  function drawSlots() {
+    const g = document.getElementById('slotgrid');
+    g.innerHTML = '';
+    for (let c = 0; c < 9; c++) {
+      const b = document.createElement('button');
+      b.className = 'slotb'; b.type = 'button'; b.textContent = label(c);
+      b.disabled = freeStaff(c, svcLen) < 0;
+      b.setAttribute('aria-pressed', String(pick === c));
+      b.addEventListener('click', () => { pick = c; drawSlots(); });
+      g.appendChild(b);
+    }
+  }
+  document.getElementById('confirm').addEventListener('click', () => {
+    const msg = document.getElementById('demomsg');
+    if (pick === null) { msg.textContent = 'Pick a time first.'; return; }
+    const s = freeStaff(pick, svcLen);
+    if (s < 0) { msg.textContent = 'That time just filled. Pick another.'; return; }
+    booked.push({ s, c: pick, len: svcLen, n: 'You' });
+    drawChart(booked.length - 1);
+    msg.textContent = `Booked: ${svcName} at ${label(pick)} with ${STAFF[s]}. It appeared on the owner's chart, and a WhatsApp confirmation would go out.`;
+    pick = null; drawSlots();
+  });
+  drawChart(); drawSlots();
+  addEventListener('resize', () => drawChart());
+
+  // pricing toggle
+  document.querySelectorAll('.toggle button').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('.toggle button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    const k = b.dataset.bill;
+    document.querySelectorAll('#pricing [data-m]').forEach((el) => { el.textContent = el.dataset[k]; });
+  }));
+
+  // copy phone
+  document.getElementById('copyphone').addEventListener('click', async (e) => {
+    const n = '+91 84078 84073';
+    try { await navigator.clipboard.writeText(n); e.target.textContent = 'Copied'; }
+    catch { const r = document.createRange(); r.selectNodeContents(document.getElementById('phone')); getSelection().removeAllRanges(); getSelection().addRange(r); e.target.textContent = 'Selected, press copy'; }
+  });
+
+  // lead form: no server here, so hand the details to WhatsApp
+  document.getElementById('lead').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = (id) => document.getElementById(id).value.trim();
+    const out = document.getElementById('leadout');
+    if (!v('f-name') || !v('f-biz') || v('f-phone').replace(/\D/g, '').length < 10) {
+      out.innerHTML = '<p class="ok-msg">Please add your name, business name and a 10-digit WhatsApp number.</p>';
+      return;
+    }
+    const text = `Hi BookingWale, I want a free demo.\nName: ${v('f-name')}\nBusiness: ${v('f-biz')} (${v('f-type')}, staff ${v('f-staff')})\nCity: ${v('f-city')}\nWhatsApp: ${v('f-phone')}\n${v('f-msg')}`;
+    out.innerHTML = `<p class="ok-msg">Thanks, ${v('f-name').split(' ')[0]}. Send these details to us on WhatsApp to confirm your demo: <a href="https://wa.me/918407884073?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Send on WhatsApp</a>. Or message +91 84078 84073.</p>`;
+  });
+})();
+</script>
+
+</html>
